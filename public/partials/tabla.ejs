@@ -1,0 +1,36 @@
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Producto</th>
+            <th scope="col">Precio</th>
+            <th scope="col">URL img</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% if (productos.length === 0) { %>
+            <tr>
+                <td colspan="3">No hay datos</td>
+            </tr>
+        <% }else{ %>
+        
+        <% for (let i = 0; i < productos.length; i++) { %>
+            <% if (i%2) { %>
+                <tr class="table-primary">
+                    <td><%=productos[i].title%></td>
+                    <td><%=productos[i].price%></td>
+                    <td><%=productos[i].thumbnail%></td>
+                    <td class="imagen"><img src=<%=productos[i].thumbnail%>></img></td>
+                </tr>
+            <%} else { %>
+            
+                <tr class="table-secondary">
+                    <td><%=productos[i].title%></td>
+                    <td><%=productos[i].price%></td>
+                    <td><%=productos[i].thumbnail%></td>
+                    <td class="imagen"><img src=<%=productos[i].thumbnail%>></img></td>
+                </tr>
+            <% } %>
+            
+        <% } } %>
+    </tbody>
+</table>

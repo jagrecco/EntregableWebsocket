@@ -1,0 +1,19 @@
+.contenedor{
+    max-width: 70vw;
+    padding: 50px 0;
+    margin: auto;
+}
+
+img{
+    max-width: 60px;
+    height: auto;
+}
+
+.titulo_carga{
+    padding: 10px;
+}
+
+#productos{
+    margin-top: 10px;
+    padding: 10px 25px;
+}
