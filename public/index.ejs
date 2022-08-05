@@ -17,7 +17,8 @@
 
     <div class="contenedor">
       <div class="formulario">
-        <form action="/productos" method="post">
+        <!-- <form action="/productos" method="post"> -->
+        <form onsubmit="AddProducto(this)"></form>
           <h2 class="btn-primary titulo_carga">Formulario de carga</h2>
           <div class="form-group">
               <label for="titulo">Titulo</label>
@@ -33,12 +34,15 @@
           </div>
           <button id="productos" type="submit" class="btn btn-primary">Enviar</button>
         </form>
+        
       </div>
-  
-      <br>
-      <%- include('lista.ejs'); %>
-      <br>
+      
+      <span id="lista"></span>
+      <%- include('tabla.ejs'); %>
 
+      <br>
+      <br>
+      
       <div class="chat">
         <h1>SOCKET IO</h1>
         <input type="text" id="inputChat" />

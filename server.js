@@ -2,13 +2,15 @@ const express = require("express");
 const { Server: HttpServer } = require("http");
 const { Server: IOServer } = require("socket.io");
 
+const p = require("./public/prod2.json")
+
 const app = express();
 const httpServer = new HttpServer(app);
 
 const io = new IOServer(httpServer);
 
 const mensajes = [];
-const productos = [];
+const productos = p;
 
 app.set('views', './public');
 app.set('view engine', 'ejs');
@@ -36,11 +38,10 @@ app.post('/productos', (req, res) => {
   productos.push(req.body)
   /* res.render('index', {productos}); */
   /* socket.emit("productos", {productos}); */
-
 })
 
 
-httpServer.listen(3000, () => console.log("SERVER ON: Puerto 3000")); 
+httpServer.listen(8080, () => console.log("SERVER ON: Puerto 8080")); 
 
 // Servidor
 io.on("connection", (socket) => {
@@ -56,10 +57,14 @@ io.on("connection", (socket) => {
     io.sockets.emit("mensajes", mensajes);
   });
 
-  socket.on("producto", (data) => {
-    productos[0]={title: "prod1"}
+  socket.on("producto", (prod) => {
+
+    productos.push(prod)
+
     io.sockets.emit("productos", productos);
-    console.log(data);
+
+    
+
   });
 
 });

@@ -3,7 +3,7 @@
         <tr>
             <th scope="col">Producto</th>
             <th scope="col">Precio</th>
-            <th scope="col">URL img</th>
+            <th scope="col">Img</th>
         </tr>
     </thead>
     <tbody>
@@ -16,18 +16,18 @@
         <% for (let i = 0; i < productos.length; i++) { %>
             <% if (i%2) { %>
                 <tr class="table-primary">
-                    <td><%=productos[i].title%></td>
-                    <td><%=productos[i].price%></td>
-                    <td><%=productos[i].thumbnail%></td>
-                    <td class="imagen"><img src=<%=productos[i].thumbnail%>></img></td>
+                    <td><%=productos[i].nombre%></td>
+                    <td><%=productos[i].precio%></td>
+                    <!-- <td><%=productos[i].foto%></td> -->
+                    <td class="imagen"><img src=<%=productos[i].foto%>></img></td>
                 </tr>
             <%} else { %>
             
                 <tr class="table-secondary">
-                    <td><%=productos[i].title%></td>
-                    <td><%=productos[i].price%></td>
-                    <td><%=productos[i].thumbnail%></td>
-                    <td class="imagen"><img src=<%=productos[i].thumbnail%>></img></td>
+                    <td><%=productos[i].nombre%></td>
+                    <td><%=productos[i].precio%></td>
+                    <!-- <td><%=productos[i].foto%></td> -->
+                    <td class="imagen"><img src=<%=productos[i].foto%>></img></td>
                 </tr>
             <% } %>
             

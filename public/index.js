@@ -13,8 +13,19 @@ document.getElementById("enviarChat").addEventListener("click", () => {
 });
 
 
+function AddProducto(datosProducto){
+  socket.emit("producto", datosProducto)
+  console.log(document.getElementById("titulo").value)
+}
 document.getElementById("productos").addEventListener("click", ()=>{
-  socket.emit("producto", {title:"Producto1"})
+  /* console.log(document.getElementById("titulo").value) */
+
+  let prod={nombre:document.getElementById("titulo").value,
+            precio: document.getElementById("precio").value,
+            img:document.getElementById("img").value}
+
+  socket.emit("producto", prod)
+
 })
 
 
@@ -33,11 +44,12 @@ socket.on("productos", (data) => {
 
   console.log(data)
 
-  fetch('/productos')
+  
+  /* fetch('/productos')
     // Exito
     .then(response => response.json())  // convertir a json
     .then(json => console.log(json))    //imprimir los datos en la consola
-    .catch(err => console.log('Solicitud fallida', err)); // Capturar errores
+    .catch(err => console.log('Solicitud fallida', err)); // Capturar errores */
   /* const datosProductos=fetch("/productos")
     .this(function(response){
       console.log(response)
