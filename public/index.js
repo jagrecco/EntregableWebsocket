@@ -4,39 +4,51 @@ const input = document.getElementById("inputChat");
 
 document.getElementById("enviarChat").addEventListener("click", () => {
 
-  socket.emit("mensaje", input.value);
+  if (document.getElementById('inputMail').value!==""){
+    
+    const date = new Date();
+    const output = String(date.getDate()).padStart(2, '0') + '/' + String(date.getMonth() + 1).padStart(2, '0') + '/' + date.getFullYear() + " " +date.toLocaleTimeString("es-ES");
+    
+    const mensaje = {
+      mail: document.getElementById('inputMail').value,
+      msg: document.getElementById('inputChat').value,
+      date: output
+    }
+    
+    socket.emit("mensaje", mensaje)
+    
+    limpiaChat()
 
-  limpiaChat()
-  
-  console.log("emitido");
+  }
 
 });
 
-
-function AddProducto(datosProducto){
-  socket.emit("producto", datosProducto)
-  console.log(document.getElementById("titulo").value)
-}
 document.getElementById("productos").addEventListener("click", ()=>{
-  /* console.log(document.getElementById("titulo").value) */
-
+  
   let prod={nombre:document.getElementById("titulo").value,
-            precio: document.getElementById("precio").value,
-            img:document.getElementById("img").value}
-
+  precio: document.getElementById("precio").value,
+  foto: document.getElementById("img").value}
+  
   socket.emit("producto", prod)
-
+  
 })
 
+function AddProducto(datosProducto){
+
+  socket.emit("producto", datosProducto)
+  
+}
 
 socket.on("mensajes", (mensajes) => {
+
   const mensajesInput = mensajes
     .map(
       (mensaje) =>
-        `SocketId: ${mensaje.socketid} -> Mensajes: ${mensaje.mensaje}`
+      `<p class="mailMensaje boxMensajes">${mensaje.mail}</p> <p class="fechaMensaje boxMensajes">[${mensaje.date}]</p> <p class="txtMensaje boxMensajes"> ${mensaje.msg}</p>`
+    
     )
     .join("<br>");
-  document.querySelector("p").innerHTML = mensajesInput;
+  document.getElementById("msg").innerHTML = mensajesInput;
 });
 
 
@@ -44,24 +56,32 @@ socket.on("productos", (data) => {
 
   console.log(data)
 
-  
-  /* fetch('/productos')
-    // Exito
-    .then(response => response.json())  // convertir a json
-    .then(json => console.log(json))    //imprimir los datos en la consola
-    .catch(err => console.log('Solicitud fallida', err)); // Capturar errores */
-  /* const datosProductos=fetch("/productos")
-    .this(function(response){
-      console.log(response)
-    })
-    .catch(err=>{console.log(err)}) */
-  /* const mensajesInput = mensajes
-  .map(
-    (mensaje) =>
-    `SocketId: ${mensaje.socketid} -> Mensajes: ${mensaje.mensaje}`
-    )
-    .join("<br>");
-    document.querySelector("p").innerHTML = mensajesInput; */
+  let tablaHtml=""
+
+  for (let i=0; i<data.length; i++) {
+
+    const rowImpar="table-primary"
+    const rowPar="table-secondary"
+
+    if (i%2) {
+      tablaHtml +=`<tr class="${rowImpar}">`
+      tablaHtml +=`<td>${data[i].nombre}</td>`
+      tablaHtml +=`<td>$${data[i].precio}</td>`
+      tablaHtml +=`<td class="imagen"><img src=${data[i].foto}></td></tr>`
+      
+
+    } else {
+      
+      tablaHtml+=`<tr class="${rowPar}">`
+      tablaHtml+=`<td>${data[i].nombre}</td>`
+      tablaHtml+=`<td>$${data[i].precio}</td>`
+      tablaHtml+=`<td class="imagen"><img src=${data[i].foto}></td></tr>`
+      
+    }
+  }
+
+  document.getElementById("cuerpoTabla").innerHTML=tablaHtml
+
   });
   
   function limpiaChat() {  

@@ -17,3 +17,31 @@ img{
     margin-top: 10px;
     padding: 10px 25px;
 }
+
+#msg{
+    margin: 1rem 0;
+}
+
+.boxMensajes{
+    
+    display: inline-block;
+    margin: 0;
+}
+.mailMensaje{
+    
+    font-weight: bold;
+    color: blue;
+}
+
+.fechaMensaje{
+    
+    display: inline-block;
+    color: brown;
+}
+
+.txtMensaje{
+    
+    display: inline-block;
+    font-style: italic;
+    color: green;
+}
