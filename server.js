@@ -2,6 +2,8 @@ const express = require("express");
 const { Server: HttpServer } = require("http");
 const { Server: IOServer } = require("socket.io");
 
+const prodsFake = require("./productosFake.js")
+
 const p = require("./public/prod2.json")
 
 const app = express();
@@ -30,6 +32,12 @@ app.get('/productos', (req, res) => {
 
   res.json(productos)
 
+})
+
+app.get('/api/productos-test', (req, res)=>{
+  
+  res.render('tablaFake', {prodsFake})
+  
 })
 
 app.post('/productos', (req, res) => {
